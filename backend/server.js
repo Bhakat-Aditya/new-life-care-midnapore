@@ -67,12 +67,44 @@ app.use('/api/admin', routeAdmin);
 app.use('/api/gallery', routeGallery);
 app.use('/api/notices', routeNotice);
 
-// ─── Health Check ─────────────────────────────────────────────────────────────
-app.get('/api/health', (req, res) => {
+// ─── Root & Health Check Endpoints ─────────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'New Life Care Healthcare Gateway API',
+    uptime: `${Math.floor(process.uptime())}s`,
+    timestamp: new Date().toISOString(),
+  });
+});
+
+app.get(['/health', '/api/health'], (req, res) => {
   res.json({
     status: 'ok',
     service: 'New Life Care Healthcare Gateway',
+    uptime: `${Math.floor(process.uptime())}s`,
     timestamp: new Date().toISOString(),
+  });
+});
+
+app.get(['/ping', '/api/ping'], (req, res) => {
+  res.json({
+    status: 'alive',
+    message: 'Backend server active and running',
+    uptime: `${Math.floor(process.uptime())}s`,
+    timestamp: new Date().toISOString(),
+  });
+});
+
+app.get('/api/health/ping-status', (req, res) => {
+  res.json({ success: true, data: getKeepAliveStats() });
+});
+
+app.get('/api/health/test-ping', async (req, res) => {
+  const result = await pingServerNow();
+  res.json({
+    success: result.success,
+    message: 'Keep-alive test ping executed',
+    result,
   });
 });
 
