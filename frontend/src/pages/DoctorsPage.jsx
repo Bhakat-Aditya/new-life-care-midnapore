@@ -10,10 +10,92 @@ import PageHero from '../components/PageHero';
 const FALLBACK_DOCTORS = [
   {
     id: 1,
+    name: 'Dr. D. A. Khan',
+    specialization: 'Pediatrics & Child Health',
+    qualification: 'MBBS, DCH (KOL), MD PEDIATRICS (PGIMER CHANDIGARH)',
+    experience: '15+ Years',
+    about: 'Renowned Child Specialist (Pediatrician) with postgraduate training from PGIMER Chandigarh and Kolkata, specializing in newborn care, child development, and pediatric illnesses.',
+    schedule: [{ day: 'Monday – Saturday', time: 'Consultation by Appointment' }],
+  },
+  {
+    id: 2,
+    name: 'Dr. Saikat Maiti',
+    specialization: 'Cosmetology, Trichology & Hair Transplant',
+    qualification: 'MD, NM (Run), Cosmetologist & Trichologist, (PGDCC) E-Derm',
+    experience: '10+ Years',
+    about: 'Renowned Mentor Hair Transplant Specialist, Cosmetologist and Trichologist specializing in hair restoration, aesthetic dermatology, and skin rejuvenation.',
+    schedule: [{ day: 'Monday – Saturday', time: 'Consultation by Appointment' }],
+  },
+  {
+    id: 3,
+    name: 'Dr. S. Mahapatra',
+    specialization: 'Orthopedics & Joint Care',
+    qualification: 'MBBS, D (Ortho)',
+    experience: '12+ Years',
+    about: 'Renowned Consultant Orthopedic Surgeon diagnosing and managing bone fractures, arthritis, joint replacements, and musculoskeletal injuries.',
+    schedule: [{ day: 'Monday – Saturday', time: 'Consultation by Appointment' }],
+  },
+  {
+    id: 4,
+    name: 'Dr. Sudipto Sit',
+    specialization: 'General Medicine & Pain Management',
+    qualification: 'MBBS, DNB (General Medicine)',
+    experience: '10+ Years',
+    about: 'Renowned Medicine Specialist with expertise in chest disorders, thyroid dysfunction, diabetes management, chronic diseases, and comprehensive pain management.',
+    schedule: [{ day: 'Monday – Saturday', time: 'Consultation by Appointment' }],
+  },
+  {
+    id: 5,
+    name: 'Dr. Alamgir Sekh',
+    specialization: 'General Medicine & Diabetology',
+    qualification: 'MBBS, DNB (General Medicine)',
+    experience: '10+ Years',
+    about: 'Renowned General Medicine Specialist with focused expertise in medicine, chest and respiratory health, thyroid diseases, and blood sugar control.',
+    schedule: [{ day: 'Monday – Saturday', time: 'Consultation by Appointment' }],
+  },
+  {
+    id: 6,
+    name: 'Dr. Ujjwal Kumar Bera',
+    specialization: 'General Physician & Internal Medicine',
+    qualification: 'M.B.B.S., M.D. (PG: SSKM College & Hospital)',
+    experience: '12+ Years',
+    about: 'Renowned General Physician post-graduated from SSKM College & Hospital (IPGMER Kolkata), treating acute and chronic adult illnesses and preventive healthcare.',
+    schedule: [{ day: 'Monday – Saturday', time: 'Consultation by Appointment' }],
+  },
+  {
+    id: 7,
+    name: 'Dr. Supriyo Bal',
+    specialization: 'General & Laparoscopic Surgery',
+    qualification: 'MBBS, DNB',
+    experience: '10+ Years',
+    about: 'Renowned General and Laparoscopic Surgeon offering advanced minimally invasive laparoscopic procedures, hernia repair, gallbladder, and general surgical interventions.',
+    schedule: [{ day: 'Monday – Saturday', time: 'Consultation by Appointment' }],
+  },
+  {
+    id: 8,
+    name: 'Dr. Swapan Sinha',
+    specialization: 'Neurology & Brain Care',
+    qualification: 'MBBS (Cal), MD (Med) Bangalore University, DM (Neuro) Bangalore University (NIMHANS), DNB (Med & Neuro) New Delhi',
+    experience: '20+ Years',
+    about: 'Renowned Senior Consultant Neurologist trained at NIMHANS and New Delhi, specializing in stroke, epilepsy, migraines, neuropathies, and neuro-rehabilitation.',
+    schedule: [{ day: 'Monday – Saturday', time: 'Consultation by Appointment' }],
+  },
+  {
+    id: 9,
+    name: 'Dr. Arya Mahapatra',
+    specialization: 'Diabetes, Thyroid & Endocrinology',
+    qualification: 'M.B.B.S. (NRSMCH), DNB (General Medicine)',
+    experience: '10+ Years',
+    about: 'Renowned Thyroid and Sugar Specialist from NRS Medical College and DNB board, dedicated to advanced glycemic management, thyroid disorders, and endocrine health.',
+    schedule: [{ day: 'Monday – Saturday', time: 'Consultation by Appointment' }],
+  },
+  {
+    id: 10,
     name: 'Dr. Nileswar Das',
     specialization: 'General Medicine & Critical Care',
-    qualification: 'MBBS MD',
+    qualification: 'MBBS, MD',
     experience: '15+ Years',
+    about: 'Senior Consultant with over 15 years experience in internal medicine, critical intensive care, and diagnostic pathology.',
     schedule: [
       { day: 'Monday', time: '10am – 1pm' },
       { day: 'Wednesday', time: '10am – 1pm' },
@@ -21,11 +103,12 @@ const FALLBACK_DOCTORS = [
     ],
   },
   {
-    id: 2,
+    id: 11,
     name: 'Dr. S K Das',
     specialization: 'Cardiology',
     qualification: 'MBBS MD (Cardiology)',
     experience: '20+ Years',
+    about: 'Expert cardiologist specializing in non-invasive cardiac evaluation, ECG, Holter diagnostics, and preventive cardiology.',
     schedule: [
       { day: 'Tuesday', time: '11am – 2pm' },
       { day: 'Saturday', time: '11am – 2pm' },
@@ -33,11 +116,12 @@ const FALLBACK_DOCTORS = [
     ],
   },
   {
-    id: 3,
+    id: 12,
     name: 'Dr. Saubhik Dasukil',
     specialization: 'Orthopedics',
     qualification: 'MBBS MS (Ortho)',
     experience: '12+ Years',
+    about: 'Consultant Orthopedic Surgeon diagnosing bone and joint disorders, sports injuries, arthritis, and spine conditions.',
     schedule: [
       { day: 'Monday', time: '5pm – 8pm' },
       { day: 'Wednesday', time: '5pm – 8pm' },
@@ -45,11 +129,12 @@ const FALLBACK_DOCTORS = [
     ],
   },
   {
-    id: 4,
+    id: 13,
     name: 'Dr. MD. Taquedis Nuri',
-    specialization: 'Gynecology',
+    specialization: 'Gynecology & Obstetrics',
     qualification: 'MBBS MS (Gynae)',
     experience: '18+ Years',
+    about: 'Experienced gynecologist and obstetrician providing comprehensive women health services, antenatal care, and fertility guidance.',
     schedule: [
       { day: 'Tuesday', time: '10am – 1pm' },
       { day: 'Friday', time: '10am – 1pm' },
@@ -57,11 +142,12 @@ const FALLBACK_DOCTORS = [
     ],
   },
   {
-    id: 5,
+    id: 14,
     name: 'Dr. Soumen Das',
     specialization: 'Diabetes & Endocrinology',
     qualification: 'MBBS MD',
     experience: '10+ Years',
+    about: 'Dedicated specialist in glycemic control, metabolic health, thyroid dysfunctions, and chronic lifestyle disease management.',
     schedule: [
       { day: 'Monday', time: '3pm – 6pm' },
       { day: 'Saturday', time: '3pm – 6pm' },
@@ -82,10 +168,22 @@ function getInitials(name) {
 
 const SPECIALTY_COLORS = {
   'General Medicine & Critical Care': 'bg-blue-100 text-blue-700',
-  Cardiology: 'bg-red-100 text-red-700',
-  Orthopedics: 'bg-orange-100 text-orange-700',
-  Gynecology: 'bg-pink-100 text-pink-700',
-  'Diabetes & Endocrinology': 'bg-green-100 text-green-700',
+  'Cardiology': 'bg-red-100 text-red-700',
+  'Orthopedics': 'bg-orange-100 text-orange-700',
+  'Orthopedics & Joint Care': 'bg-orange-100 text-orange-700',
+  'Gynecology': 'bg-pink-100 text-pink-700',
+  'Gynecology & Obstetrics': 'bg-pink-100 text-pink-700',
+  'Diabetes & Endocrinology': 'bg-emerald-100 text-emerald-700',
+  'Diabetes & Thyroid': 'bg-emerald-100 text-emerald-700',
+  'Diabetes, Thyroid & Endocrinology': 'bg-emerald-100 text-emerald-700',
+  'Pediatrics & Child Health': 'bg-purple-100 text-purple-700',
+  'Cosmetology, Trichology & Hair Transplant': 'bg-teal-100 text-teal-700',
+  'General Medicine & Pain Management': 'bg-sky-100 text-sky-700',
+  'General Medicine & Diabetology': 'bg-cyan-100 text-cyan-700',
+  'General Physician & Internal Medicine': 'bg-blue-100 text-blue-700',
+  'General & Laparoscopic Surgery': 'bg-indigo-100 text-indigo-700',
+  'Neurology & Brain Care': 'bg-rose-100 text-rose-700',
+  'Critical Care': 'bg-violet-100 text-violet-700',
 };
 
 const DAY_SHORT = {
@@ -140,9 +238,11 @@ function ErrorState({ onRetry }) {
 }
 
 function DoctorCard({ doctor }) {
+  const [imageError, setImageError] = useState(false);
   const colorClass =
     SPECIALTY_COLORS[doctor.specialization] || 'bg-sky-100 text-sky-700';
   const initials = getInitials(doctor.name);
+  const photo = !imageError && (doctor.imageUrl || doctor.image);
 
   return (
     <motion.article
@@ -154,12 +254,21 @@ function DoctorCard({ doctor }) {
     >
       {/* Avatar + Name */}
       <div className="flex items-start gap-4">
-        <div className="w-16 h-16 rounded-full bg-sky-500 flex items-center justify-center shrink-0 shadow">
-          <span className="text-white font-bold text-xl tracking-wide">{initials}</span>
-        </div>
+        {photo ? (
+          <img
+            src={photo}
+            alt={doctor.name}
+            onError={() => setImageError(true)}
+            className="w-16 h-16 rounded-full object-cover shrink-0 shadow border-2 border-sky-100"
+          />
+        ) : (
+          <div className="w-16 h-16 rounded-full bg-sky-500 flex items-center justify-center shrink-0 shadow">
+            <span className="text-white font-bold text-xl tracking-wide">{initials}</span>
+          </div>
+        )}
         <div className="flex-1 min-w-0">
           <h2 className="text-slate-800 font-bold text-lg leading-tight">{doctor.name}</h2>
-          <p className="text-slate-500 text-sm mt-0.5">{doctor.qualification}</p>
+          <p className="text-slate-500 text-xs sm:text-sm mt-0.5 leading-snug">{doctor.qualification}</p>
           <span
             className={`inline-block mt-2 px-3 py-0.5 rounded-full text-xs font-semibold ${colorClass}`}
           >
@@ -171,19 +280,28 @@ function DoctorCard({ doctor }) {
       {/* Experience badge */}
       <div className="flex items-center gap-2">
         <Award className="w-4 h-4 text-amber-500 shrink-0" />
-        <span className="text-sm text-slate-600 font-medium">{doctor.experience} Experience</span>
+        <span className="text-sm text-slate-600 font-medium">{doctor.experience || '10+ Years'} Experience</span>
       </div>
+
+      {doctor.about && (
+        <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">
+          {doctor.about}
+        </p>
+      )}
 
       {/* Schedule */}
       <div>
         <div className="flex items-center gap-2 mb-2">
           <CalendarDays className="w-4 h-4 text-sky-500 shrink-0" />
           <span className="text-xs font-semibold text-slate-500 uppercase tracking-wide">
-            Weekly Schedule
+            Consultation / Schedule
           </span>
         </div>
         <div className="flex flex-wrap gap-2">
-          {(doctor.schedule || []).map((slot, idx) => (
+          {(doctor.schedule && doctor.schedule.length > 0
+            ? doctor.schedule
+            : [{ day: 'Monday – Saturday', time: 'Consultation by Appointment' }]
+          ).map((slot, idx) => (
             <div
               key={idx}
               className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5"
@@ -201,8 +319,8 @@ function DoctorCard({ doctor }) {
 
       {/* Book Button */}
       <Link
-        to="/book-consultation"
-        className="mt-auto flex items-center justify-center gap-2 w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold text-sm py-2.5 rounded-xl transition-colors duration-200"
+        to={`/book-consultation?doctor=${encodeURIComponent(doctor.name)}&department=${encodeURIComponent(doctor.specialization)}`}
+        className="mt-auto flex items-center justify-center gap-2 w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold text-sm py-2.5 rounded-xl transition-colors duration-200 shadow-sm"
       >
         <Stethoscope className="w-4 h-4" />
         Book Appointment

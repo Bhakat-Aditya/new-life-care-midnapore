@@ -27,7 +27,7 @@ import {
   Bell,
 } from 'lucide-react'
 import PageTransition from '../components/PageTransition'
-import { getActiveNotices } from '../services/api'
+import { getActiveNotices, getDoctors } from '../services/api'
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
@@ -104,12 +104,15 @@ const whyUs = [
   },
 ]
 
-const doctors = [
-  { name: 'Dr. Nileswar Das', spec: 'General Medicine & Critical Care', exp: '15+ yrs', days: 'Mon–Sat', initials: 'ND', color: 'sky' },
-  { name: 'Dr. S K Das', spec: 'Cardiology', exp: '20+ yrs', days: 'Mon, Wed, Fri', initials: 'SD', color: 'rose' },
-  { name: 'Dr. Saubhik Dasukil', spec: 'Orthopedics', exp: '12+ yrs', days: 'Tue, Thu, Sat', initials: 'SD', color: 'emerald' },
-  { name: 'Dr. MD. Taquedis Nuri', spec: 'Gynecology & Obstetrics', exp: '18+ yrs', days: 'Mon–Fri', initials: 'TN', color: 'violet' },
-  { name: 'Dr. Soumen Das', spec: 'Diabetes & Thyroid Medicine', exp: '10+ yrs', days: 'Mon, Thu, Sat', initials: 'SD', color: 'amber' },
+const fallbackHomeDoctors = [
+  { name: 'Dr. D. A. Khan', spec: 'Pediatrics & Child Health', exp: '15+ yrs', days: 'Mon–Sat', initials: 'DK', color: 'purple' },
+  { name: 'Dr. Saikat Maiti', spec: 'Cosmetology & Hair Transplant', exp: '10+ yrs', days: 'Mon–Sat', initials: 'SM', color: 'teal' },
+  { name: 'Dr. Swapan Sinha', spec: 'Neurology & Brain Care', exp: '20+ yrs', days: 'Mon–Sat', initials: 'SS', color: 'rose' },
+  { name: 'Dr. Supriyo Bal', spec: 'General & Laparoscopic Surgery', exp: '10+ yrs', days: 'Mon–Sat', initials: 'SB', color: 'indigo' },
+  { name: 'Dr. S. Mahapatra', spec: 'Orthopedics & Joint Care', exp: '12+ yrs', days: 'Mon–Sat', initials: 'SM', color: 'amber' },
+  { name: 'Dr. Sudipto Sit', spec: 'General Medicine & Pain Management', exp: '10+ yrs', days: 'Mon–Sat', initials: 'SS', color: 'sky' },
+  { name: 'Dr. Arya Mahapatra', spec: 'Diabetes, Thyroid & Endocrinology', exp: '10+ yrs', days: 'Mon–Sat', initials: 'AM', color: 'emerald' },
+  { name: 'Dr. S K Das', spec: 'Cardiology', exp: '20+ yrs', days: 'Mon, Wed, Fri', initials: 'SD', color: 'red' },
 ]
 
 const packages = [
@@ -242,6 +245,7 @@ const stagger = {
 
 export default function HomePage() {
   const [notices, setNotices] = useState([])
+  const [featuredDoctors, setFeaturedDoctors] = useState(fallbackHomeDoctors)
 
   useEffect(() => {
     const fetchNotices = async () => {
@@ -260,6 +264,16 @@ export default function HomePage() {
     }
     fetchNotices()
     const timer = setInterval(fetchNotices, 30000)
+
+    // Fetch doctors dynamically
+    getDoctors()
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setFeaturedDoctors(data.slice(0, 8))
+        }
+      })
+      .catch(() => {})
+
     return () => clearInterval(timer)
   }, [])
 
@@ -650,7 +664,7 @@ export default function HomePage() {
                       { label: 'Tests Conducted', value: '50,000+' },
                       { label: 'Happy Patients', value: '10,000+' },
                       { label: 'Years of Service', value: '8+' },
-                      { label: 'Expert Doctors', value: '5' },
+                      { label: 'Expert Doctors', value: '14+' },
                     ].map((item) => (
                       <div key={item.label} className="bg-white/15 rounded-xl p-4">
                         <p className="text-2xl font-bold font-nunito">{item.value}</p>
@@ -734,32 +748,70 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           >
-            {doctors.map((doc) => (
-              <motion.article
-                key={doc.name}
-                variants={fadeUp}
-                whileHover={{ y: -4 }}
-                className="bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg transition-all overflow-hidden text-center group"
-              >
-                <div className={`bg-${doc.color}-50 pt-8 pb-6 px-6`}>
-                  <div
-                    className={`w-20 h-20 mx-auto rounded-full bg-${doc.color}-100 flex items-center justify-center text-${doc.color}-600 text-2xl font-bold font-nunito border-4 border-${doc.color}-200 group-hover:border-${doc.color}-400 transition-colors`}
-                  >
-                    {doc.initials}
+            {featuredDoctors.map((doc) => {
+              const initials =
+                doc.initials ||
+                doc.name
+                  .replace(/^Dr\.\s*/i, '')
+                  .split(' ')
+                  .filter(Boolean)
+                  .slice(0, 2)
+                  .map((n) => n[0].toUpperCase())
+                  .join('')
+              const photo = doc.imageUrl || doc.image
+              const spec = doc.spec || doc.specialization
+              const exp = doc.exp || doc.experience || '10+ yrs'
+              const days =
+                doc.days ||
+                (Array.isArray(doc.schedule) && doc.schedule[0]?.day
+                  ? doc.schedule[0].day
+                  : 'By Appointment')
+
+              return (
+                <motion.article
+                  key={doc.name}
+                  variants={fadeUp}
+                  whileHover={{ y: -4 }}
+                  className="bg-white border border-slate-100 rounded-2xl shadow-sm hover:shadow-lg transition-all overflow-hidden text-center group flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="bg-slate-50 pt-7 pb-5 px-6 flex justify-center">
+                      {photo ? (
+                        <img
+                          src={photo}
+                          alt={doc.name}
+                          className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-md"
+                        />
+                      ) : (
+                        <div
+                          className="w-20 h-20 mx-auto rounded-full bg-sky-100 flex items-center justify-center text-sky-700 text-2xl font-bold font-nunito border-4 border-white shadow-md group-hover:bg-sky-200 transition-colors"
+                        >
+                          {initials}
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-5">
+                      <h3 className="font-bold text-slate-800 text-sm mb-1">{doc.name}</h3>
+                      <p className="text-slate-500 text-xs mb-3 line-clamp-1">{spec}</p>
+                      <div className="flex flex-col gap-2">
+                        <span className="text-xs font-semibold text-sky-700 bg-sky-50 px-3 py-1 rounded-full">
+                          {exp} Experience
+                        </span>
+                        <span className="text-xs text-slate-500">📅 {days}</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="p-5">
-                  <h3 className="font-bold text-slate-800 text-sm mb-1">{doc.name}</h3>
-                  <p className="text-slate-500 text-xs mb-3">{doc.spec}</p>
-                  <div className="flex flex-col gap-2">
-                    <span className={`text-xs font-semibold text-${doc.color}-600 bg-${doc.color}-50 px-3 py-1 rounded-full`}>
-                      {doc.exp} Experience
-                    </span>
-                    <span className="text-xs text-slate-500">📅 {doc.days}</span>
+                  <div className="p-4 pt-0">
+                    <Link
+                      to={`/book-consultation?doctor=${encodeURIComponent(doc.name)}&department=${encodeURIComponent(spec || '')}`}
+                      className="block w-full py-2 bg-slate-50 hover:bg-sky-500 hover:text-white text-sky-600 text-xs font-bold rounded-xl border border-sky-100 transition-colors"
+                    >
+                      Book Consultation
+                    </Link>
                   </div>
-                </div>
-              </motion.article>
-            ))}
+                </motion.article>
+              )
+            })}
           </motion.div>
 
           <div className="text-center mt-10">

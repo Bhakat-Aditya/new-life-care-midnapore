@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'react-hot-toast';
@@ -16,28 +17,27 @@ import {
   Edit2,
   Loader2,
 } from 'lucide-react';
-import { createBooking } from '../services/api';
+import { createBooking, getDoctors } from '../services/api';
 import PageTransition from '../components/PageTransition';
 
-// ─── Data ────────────────────────────────────────────────────────────────────
+// ─── Fallback Data ────────────────────────────────────────────────────────────
 
-const DEPARTMENTS = [
-  'General Medicine',
-  'Critical Care',
-  'Cardiology',
-  'Orthopedics',
-  'Gynecology',
-  'Diabetes & Thyroid',
+const FALLBACK_DOCTORS_LIST = [
+  { name: 'Dr. D. A. Khan', specialization: 'Pediatrics & Child Health' },
+  { name: 'Dr. Saikat Maiti', specialization: 'Cosmetology, Trichology & Hair Transplant' },
+  { name: 'Dr. S. Mahapatra', specialization: 'Orthopedics & Joint Care' },
+  { name: 'Dr. Sudipto Sit', specialization: 'General Medicine & Pain Management' },
+  { name: 'Dr. Alamgir Sekh', specialization: 'General Medicine & Diabetology' },
+  { name: 'Dr. Ujjwal Kumar Bera', specialization: 'General Physician & Internal Medicine' },
+  { name: 'Dr. Supriyo Bal', specialization: 'General & Laparoscopic Surgery' },
+  { name: 'Dr. Swapan Sinha', specialization: 'Neurology & Brain Care' },
+  { name: 'Dr. Arya Mahapatra', specialization: 'Diabetes, Thyroid & Endocrinology' },
+  { name: 'Dr. Nileswar Das', specialization: 'General Medicine & Critical Care' },
+  { name: 'Dr. S K Das', specialization: 'Cardiology' },
+  { name: 'Dr. Saubhik Dasukil', specialization: 'Orthopedics' },
+  { name: 'Dr. MD. Taquedis Nuri', specialization: 'Gynecology & Obstetrics' },
+  { name: 'Dr. Soumen Das', specialization: 'Diabetes & Endocrinology' },
 ];
-
-const DOCTORS_BY_DEPT = {
-  'General Medicine': ['Dr. Nileswar Das'],
-  'Critical Care': ['Dr. Nileswar Das'],
-  Cardiology: ['Dr. S K Das'],
-  Orthopedics: ['Dr. Saubhik Dasukil'],
-  Gynecology: ['Dr. MD. Taquedis Nuri'],
-  'Diabetes & Thyroid': ['Dr. Soumen Das'],
-};
 
 const TIME_SLOTS = [
   '9:00 AM – 10:00 AM',
@@ -207,8 +207,8 @@ function Step1({ data, onChange, errors }) {
 
 // ─── Step 2 ───────────────────────────────────────────────────────────────────
 
-function Step2({ data, onChange, errors }) {
-  const availableDoctors = data.department ? DOCTORS_BY_DEPT[data.department] || [] : [];
+function Step2({ data, onChange, errors, departments = [], doctorsByDept = {} }) {
+  const availableDoctors = data.department ? doctorsByDept[data.department] || [] : [];
 
   const handleDeptChange = (val) => {
     onChange('department', val);
@@ -231,7 +231,7 @@ function Step2({ data, onChange, errors }) {
           className={inputClass(true, !!errors.department) + ' appearance-none cursor-pointer'}
         >
           <option value="">Select department</option>
-          {DEPARTMENTS.map((d) => (
+          {departments.map((d) => (
             <option key={d} value={d}>
               {d}
             </option>
@@ -406,6 +406,8 @@ const INITIAL_STEP1 = { fullName: '', phone: '', email: '', age: '', gender: '' 
 const INITIAL_STEP2 = { department: '', doctor: '', date: '', timeSlot: '', notes: '' };
 
 export default function BookConsultationPage() {
+  const [searchParams] = useSearchParams();
+  const [doctorsList, setDoctorsList] = useState(FALLBACK_DOCTORS_LIST);
   const [currentStep, setCurrentStep] = useState(1);
   const [step1Data, setStep1Data] = useState(INITIAL_STEP1);
   const [step2Data, setStep2Data] = useState(INITIAL_STEP2);
@@ -414,6 +416,62 @@ export default function BookConsultationPage() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [bookingId, setBookingId] = useState('');
+
+  // Fetch live doctors on load
+  useEffect(() => {
+    let mounted = true;
+    getDoctors()
+      .then((data) => {
+        if (mounted && Array.isArray(data) && data.length > 0) {
+          setDoctorsList(data);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const { departments, doctorsByDept } = useMemo(() => {
+    const deptMap = {};
+    doctorsList.forEach((d) => {
+      const dept = d.specialization?.trim() || 'General Medicine';
+      if (!deptMap[dept]) deptMap[dept] = [];
+      if (!deptMap[dept].includes(d.name)) {
+        deptMap[dept].push(d.name);
+      }
+    });
+    return {
+      departments: Object.keys(deptMap).sort(),
+      doctorsByDept: deptMap,
+    };
+  }, [doctorsList]);
+
+  // Pre-fill doctor and department if URL params are present
+  useEffect(() => {
+    const docParam = searchParams.get('doctor');
+    const deptParam = searchParams.get('department');
+    if (docParam) {
+      const matched = doctorsList.find(
+        (d) => d.name.toLowerCase() === docParam.toLowerCase()
+      );
+      if (matched) {
+        setStep2Data((p) => ({
+          ...p,
+          doctor: matched.name,
+          department: matched.specialization || p.department,
+        }));
+      } else {
+        setStep2Data((p) => ({
+          ...p,
+          doctor: docParam,
+          department: deptParam || p.department,
+        }));
+      }
+    } else if (deptParam) {
+      setStep2Data((p) => ({ ...p, department: deptParam }));
+    }
+  }, [searchParams, doctorsList]);
 
   const handleStep1Change = (field, value) => {
     setStep1Data((p) => ({ ...p, [field]: value }));
@@ -537,6 +595,8 @@ export default function BookConsultationPage() {
                       data={step2Data}
                       onChange={handleStep2Change}
                       errors={step2Errors}
+                      departments={departments}
+                      doctorsByDept={doctorsByDept}
                     />
                   )}
                   {currentStep === 3 && (

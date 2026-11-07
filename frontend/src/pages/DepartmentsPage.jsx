@@ -1,103 +1,178 @@
 import { Helmet } from 'react-helmet-async'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Heart, Bone, Baby, Activity, Stethoscope, AlertCircle } from 'lucide-react'
+import {
+  Heart,
+  Bone,
+  Baby,
+  Activity,
+  Stethoscope,
+  AlertCircle,
+  Brain,
+  Sparkles,
+  Scissors,
+} from 'lucide-react'
 import PageTransition from '../components/PageTransition'
 import PageHero from '../components/PageHero'
 
 const departments = [
   {
     icon: Baby,
-    name: 'Gynecology & Obstetrics',
+    name: 'Pediatrics & Child Health',
+    color: 'purple',
+    description:
+      'Specialized care for infants, children, and adolescents led by PGIMER-trained child specialists. From newborn screening to pediatric acute care and immunization.',
+    services: [
+      'Newborn & Infant Care',
+      'Childhood Vaccinations & Immunization',
+      'Growth & Nutritional Assessment',
+      'Pediatric Respiratory & Asthma Care',
+      'Childhood Infection & Fever Management',
+      'Developmental Milestones Evaluation',
+    ],
+    doctors: ['Dr. D. A. Khan'],
+  },
+  {
+    icon: Sparkles,
+    name: 'Cosmetology & Hair Transplant',
+    color: 'teal',
+    description:
+      'Advanced aesthetic dermatology, hair restoration treatments, trichology care, and modern skin rejuvenation led by certified clinical cosmetologists.',
+    services: [
+      'Hair Loss Evaluation & Trichology',
+      'Hair Transplant Consultation & Care',
+      'Aesthetic Dermatology & Skin Peels',
+      'Acne, Pigmentation & Scar Management',
+      'Anti-Aging & Skin Rejuvenation',
+      'Laser & Electrodermal Therapies',
+    ],
+    doctors: ['Dr. Saikat Maiti'],
+  },
+  {
+    icon: Brain,
+    name: 'Neurology & Brain Care',
     color: 'rose',
     description:
-      "Comprehensive women's health services including prenatal care, high-risk pregnancy management, routine gynecological exams, menstrual disorder treatment, and fertility consultations.",
+      'Specialized diagnosis and management of neurological disorders, stroke prevention, headache disorders, epilepsy, and peripheral neuropathy by NIMHANS-trained specialists.',
     services: [
-      'Antenatal & Postnatal Care',
-      'High-Risk Pregnancy Management',
-      'Obstetric Ultrasound',
-      'Menstrual Disorder Treatment',
-      'PCOS / PCOD Management',
-      'Fertility Counselling',
+      'Stroke Risk Assessment & Post-Care',
+      'Headache & Migraine Management',
+      'Epilepsy & Seizure Evaluation',
+      'Neuropathy & Nerve Pain Treatment',
+      'Dementia & Memory Care',
+      'Neuro-Rehabilitation Guidance',
     ],
-    doctors: ['Dr. MD. Taquedis Nuri'],
+    doctors: ['Dr. Swapan Sinha'],
+  },
+  {
+    icon: Scissors,
+    name: 'General & Laparoscopic Surgery',
+    color: 'indigo',
+    description:
+      'Minimally invasive laparoscopic surgical consultations and general surgical procedures with state-of-the-art preoperative diagnostic imaging and recovery care.',
+    services: [
+      'Laparoscopic Gallbladder & Appendix',
+      'Hernia Repair (Inguinal & Ventral)',
+      'Anorectal & Hemorrhoid Consultations',
+      'Soft Tissue Swellings & Cysts',
+      'Wound Management & Minor Procedures',
+      'Pre-Surgical Fitness Clearance',
+    ],
+    doctors: ['Dr. Supriyo Bal'],
+  },
+  {
+    icon: Bone,
+    name: 'Orthopedics & Joint Care',
+    color: 'amber',
+    description:
+      'Diagnosis and treatment of bone, joint, and musculoskeletal conditions with high-resolution digital X-Ray and USG for arthritis, fractures, and spine disorders.',
+    services: [
+      'Digital X-Ray (Bone & Joint)',
+      'Musculoskeletal Ultrasound (USG)',
+      'Arthritis & Osteoporosis Diagnosis',
+      'Sports Injury & Ligament Assessment',
+      'Spine Disorder & Sciatica Management',
+      'Joint Pain Injections & Physical Rehab',
+    ],
+    doctors: ['Dr. S. Mahapatra', 'Dr. Saubhik Dasukil'],
+  },
+  {
+    icon: Activity,
+    name: 'Diabetes, Thyroid & Endocrinology',
+    color: 'emerald',
+    description:
+      'Complete endocrine care for type 1 and type 2 diabetes, thyroid nodules, hypo/hyperthyroidism, hormonal disorders, and metabolic health checkups.',
+    services: [
+      'Fasting & Post-Prandial Glucose',
+      'HbA1c Glycemic Evaluation',
+      'Comprehensive Thyroid Panel (TSH/T3/T4)',
+      'Diabetic Foot & Neuropathy Screening',
+      'Lipid & Cardiovascular Risk Assessment',
+      'Personalized Diet & Lifestyle Planning',
+    ],
+    doctors: ['Dr. Arya Mahapatra', 'Dr. Soumen Das'],
+  },
+  {
+    icon: Stethoscope,
+    name: 'General Medicine & Internal Medicine',
+    color: 'sky',
+    description:
+      'Comprehensive primary care for adult health conditions, fever, infections, chest illnesses, chronic multi-system disorders, and holistic pain management.',
+    services: [
+      'Routine Health & Annual Checkups',
+      'Fever, Typhoid & Malaria Diagnostics',
+      'Chest & Respiratory Condition Care',
+      'Chronic Pain & Headache Management',
+      'Complete Blood & Biochemical Profiles',
+      'Preventive Healthcare & Screenings',
+    ],
+    doctors: ['Dr. Sudipto Sit', 'Dr. Alamgir Sekh', 'Dr. Ujjwal Kumar Bera', 'Dr. Nileswar Das'],
   },
   {
     icon: Heart,
     name: 'Cardiology',
     color: 'red',
     description:
-      'Expert cardiac care with advanced diagnostic tools including ECG, Holter monitoring, and stress tests. Early detection and management of heart diseases for a healthier life.',
+      'Expert cardiac care with advanced non-invasive diagnostic tools including 12-lead ECG, 24/48-hour Holter monitoring, cardiac biomarkers, and preventive heart screenings.',
     services: [
-      '12-Lead ECG',
+      '12-Lead Digital ECG',
       '24/48-Hour Holter Monitoring',
-      'Stress Test / TMT',
-      'Cardiac Biomarker Testing',
-      'Lipid Profile',
-      'Echocardiography Referral',
+      'Cardiac Biomarker Testing (Troponin)',
+      'Lipid Profile & Hypertension Review',
+      'Stress Assessment & Heart Checkups',
+      'Preventive Cardiology Counseling',
     ],
     doctors: ['Dr. S K Das'],
   },
   {
-    icon: Bone,
-    name: 'Orthopedics',
-    color: 'amber',
+    icon: Baby,
+    name: 'Gynecology & Obstetrics',
+    color: 'rose',
     description:
-      'Diagnosis and management of bone, joint, and musculoskeletal conditions. Digital X-Ray and USG for musculoskeletal injuries, arthritis, sports injuries, and spinal disorders.',
+      "Comprehensive women's health services including antenatal care, high-risk pregnancy evaluations, obstetric ultrasound, menstrual disorder treatments, and fertility guidance.",
     services: [
-      'Digital X-Ray (Bone & Joint)',
-      'Musculoskeletal USG',
-      'Arthritis Diagnosis',
-      'Sports Injury Assessment',
-      'Spine Disorder Evaluation',
-      'Bone Density Assessment',
+      'Antenatal & Postnatal Mother Care',
+      'High-Risk Pregnancy Screening',
+      'Pelvic & Obstetric Ultrasound (USG)',
+      'PCOS / PCOD Evaluation & Diet',
+      'Menstrual Disorder Management',
+      'Fertility & Pre-Conception Guidance',
     ],
-    doctors: ['Dr. Saubhik Dasukil'],
-  },
-  {
-    icon: Activity,
-    name: 'Diabetes & Thyroid',
-    color: 'emerald',
-    description:
-      'Comprehensive diabetes management and thyroid disorder evaluation with HbA1c, fasting glucose, Thyroid Profile (T3/T4/TSH), and expert endocrinology consultations.',
-    services: [
-      'Fasting & PP Blood Glucose',
-      'HbA1c (3-Month Avg Sugar)',
-      'Thyroid Profile (TSH, T3, T4)',
-      'Insulin Level Testing',
-      'Microalbumin & Kidney Tests',
-      'Diabetes Education',
-    ],
-    doctors: ['Dr. Soumen Das'],
-  },
-  {
-    icon: Stethoscope,
-    name: 'General Medicine',
-    color: 'sky',
-    description:
-      'Primary care and general medicine for adults covering infectious diseases, chronic conditions, fever management, and preventive health checkups.',
-    services: [
-      'Routine Health Checkup',
-      'Fever & Infection Management',
-      'Chronic Disease Management',
-      'Complete Blood Count (CBC)',
-      'Comprehensive Metabolic Panel',
-      'Preventive Screening',
-    ],
-    doctors: ['Dr. Nileswar Das'],
+    doctors: ['Dr. MD. Taquedis Nuri'],
   },
   {
     icon: AlertCircle,
-    name: 'Critical Care',
+    name: 'Critical Care Support',
     color: 'violet',
     description:
-      'Rapid diagnostic support for critically ill patients. Priority reporting, emergency lab services, and liaison with intensive care units for time-sensitive clinical decisions.',
+      'Rapid diagnostic support for critically ill patients. Priority stat reporting, emergency biochemistry, and time-sensitive laboratory decisions.',
     services: [
-      'Emergency Blood Tests',
-      'Arterial Blood Gas (ABG)',
-      'D-Dimer & Coagulation Profile',
-      'Sepsis Biomarkers (Procalcitonin)',
-      'Lactate Level',
-      'Priority Report Delivery',
+      'Stat Blood & Arterial Gas Tests',
+      'D-Dimer & Coagulation Profiling',
+      'Sepsis Biomarkers (Procalcitonin, CRP)',
+      'Serum Electrolytes & Lactate Monitoring',
+      'Priority Emergency Report Delivery',
+      'Liaison for Critical Patient Care',
     ],
     doctors: ['Dr. Nileswar Das'],
   },
@@ -113,6 +188,9 @@ const stagger = {
 }
 
 const colorMap = {
+  purple: { bg: 'bg-purple-50', iconBg: 'bg-purple-100', text: 'text-purple-600', border: 'border-purple-200', badge: 'bg-purple-100 text-purple-700' },
+  teal: { bg: 'bg-teal-50', iconBg: 'bg-teal-100', text: 'text-teal-600', border: 'border-teal-200', badge: 'bg-teal-100 text-teal-700' },
+  indigo: { bg: 'bg-indigo-50', iconBg: 'bg-indigo-100', text: 'text-indigo-600', border: 'border-indigo-200', badge: 'bg-indigo-100 text-indigo-700' },
   rose: { bg: 'bg-rose-50', iconBg: 'bg-rose-100', text: 'text-rose-600', border: 'border-rose-200', badge: 'bg-rose-100 text-rose-700' },
   red: { bg: 'bg-red-50', iconBg: 'bg-red-100', text: 'text-red-600', border: 'border-red-200', badge: 'bg-red-100 text-red-700' },
   amber: { bg: 'bg-amber-50', iconBg: 'bg-amber-100', text: 'text-amber-600', border: 'border-amber-200', badge: 'bg-amber-100 text-amber-700' },
@@ -134,7 +212,7 @@ export default function DepartmentsPage() {
 
       <PageHero
         title="Our Departments"
-        subtitle="Specialized care across 6 major medical departments, each supported by experienced doctors and advanced diagnostic infrastructure."
+        subtitle="Specialized care across 10 major medical departments, each supported by experienced doctors and advanced diagnostic infrastructure."
         breadcrumb={[{ label: 'Departments' }]}
       />
 
@@ -181,7 +259,7 @@ export default function DepartmentsPage() {
                     <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">
                       Services Include
                     </h3>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-5">
                       {dept.services.map((svc) => (
                         <li key={svc} className="flex items-center gap-2 text-sm text-slate-700">
                           <span className={`w-1.5 h-1.5 rounded-full ${c.bg} border ${c.border} ${c.text} flex-shrink-0`}
@@ -191,6 +269,13 @@ export default function DepartmentsPage() {
                         </li>
                       ))}
                     </ul>
+
+                    <Link
+                      to={`/book-consultation?department=${encodeURIComponent(dept.name)}`}
+                      className={`inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-xl text-xs font-bold transition-all ${c.badge} hover:shadow-sm`}
+                    >
+                      Book Consultation in {dept.name} →
+                    </Link>
                   </div>
                 </motion.article>
               )
