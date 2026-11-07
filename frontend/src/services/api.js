@@ -1,7 +1,15 @@
 import axios from 'axios';
 
+// Resolve API base URL: supports both VITE_API_BASE_URL or relative '/api'
+const getBaseURL = () => {
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+  if (!envUrl) return '/api';
+  const clean = envUrl.trim().replace(/\/+$/, '');
+  return clean.endsWith('/api') ? clean : `${clean}/api`;
+};
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: getBaseURL(),
   timeout: 20000,
   headers: { 'Content-Type': 'application/json' },
 });
