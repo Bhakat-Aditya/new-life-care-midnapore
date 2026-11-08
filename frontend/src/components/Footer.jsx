@@ -14,13 +14,14 @@ const quickLinks = [
 ]
 
 const services = [
-  'Advanced Pathology',
-  'Digital X-Ray',
+  'Advanced Pathology (Blood, Urine, Stool, Semen, Sputum)',
+  'Digital X-Ray & Computerized ECG',
+  'EEG & NCV (Neurological Testing)',
+  '24-Hour Holter Monitoring',
+  'Endoscopy & PFT (Pulmonary Function)',
   'Ultrasonography (USG)',
-  'ECG',
-  'Holter Monitoring',
-  'Pulmonary Function Test',
-  'Home Sample Collection',
+  '24/7 Home Sample Collection',
+  'Oxygen Cylinder Supply & Support',
 ]
 
 export default function Footer() {
@@ -123,9 +124,15 @@ export default function Footer() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
+                <Mail size={16} className="text-sky-400 shrink-0" />
+                <a href="mailto:newlifecaredc@gmail.com" className="text-slate-400 hover:text-sky-400 text-sm transition-colors block">
+                  newlifecaredc@gmail.com
+                </a>
+              </div>
+              <div className="flex items-center gap-3">
                 <Clock size={16} className="text-sky-400 shrink-0" />
                 <div className="text-sm text-slate-400">
-                  <p>Open Daily: 7:00 AM – 11:00 PM</p>
+                  <p>Open Daily: 24x7 Services Available</p>
                   <p className="text-emerald-400 font-medium">Home Collection: 24/7</p>
                 </div>
               </div>

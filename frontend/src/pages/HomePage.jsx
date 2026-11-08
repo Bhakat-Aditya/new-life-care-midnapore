@@ -27,6 +27,7 @@ import {
   Bell,
 } from 'lucide-react'
 import PageTransition from '../components/PageTransition'
+import HeroSection from '../components/HeroSection'
 import { getActiveNotices, getDoctors } from '../services/api'
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
@@ -41,38 +42,38 @@ const stats = [
 const services = [
   {
     icon: FlaskConical,
-    title: 'Advanced Pathology',
-    desc: 'Complete blood count, biochemistry, microbiology, immunology & more with NABL precision.',
+    title: 'Advanced Pathology (NABL)',
+    desc: 'Blood, Urine, Stool, Semen, Sputum testing with automated analyzers and NABL certified accuracy.',
     color: 'sky',
   },
   {
     icon: Scan,
-    title: 'Digital X-Ray',
-    desc: 'High-resolution digital radiography with instant reporting for bones, chest & abdomen.',
+    title: 'Digital X-Ray & ECG',
+    desc: 'Instant digital radiography and computerized 12-lead ECG with priority reporting.',
     color: 'emerald',
   },
   {
     icon: Activity,
-    title: 'Ultrasonography (USG)',
-    desc: 'Full abdomen, pelvis, obstetric, Doppler and musculoskeletal ultrasound scans.',
-    color: 'sky',
+    title: 'Neurological EEG & NCV',
+    desc: 'Advanced digital EEG and Nerve Conduction Velocity (NCV) electrophysiology testing.',
+    color: 'indigo',
   },
   {
     icon: Heart,
-    title: 'ECG & Holter',
-    desc: '12-lead resting ECG and 24/48-hour Holter monitoring for cardiac arrhythmia detection.',
-    color: 'emerald',
+    title: '24-Hour Holter Monitoring',
+    desc: 'Continuous ambulatory ECG recording for arrhythmia detection and cardiac evaluation.',
+    color: 'rose',
   },
   {
     icon: Wind,
-    title: 'Pulmonary Function Test',
-    desc: 'Spirometry and PFT for asthma, COPD and other respiratory condition assessments.',
-    color: 'sky',
+    title: 'Endoscopy & PFT',
+    desc: 'Upper GI video endoscopy and computerized Pulmonary Function Testing for respiratory health.',
+    color: 'amber',
   },
   {
     icon: Home,
-    title: 'Home Sample Collection',
-    desc: 'Certified phlebotomists collect samples at your doorstep any time, day or night.',
+    title: '24/7 Home Collection & Oxygen',
+    desc: 'Doorstep sample pickup across Midnapore town anytime. Emergency oxygen cylinders available.',
     color: 'emerald',
   },
 ]
@@ -81,74 +82,107 @@ const whyUs = [
   {
     icon: CheckCircle2,
     title: 'Accurate Reports',
-    desc: 'NABL-accredited lab with state-of-the-art equipment ensures reports you can trust.',
+    desc: 'NABL-accredited & ISO 9001:2015 certified laboratory with advanced automated analyzers.',
     color: 'sky',
   },
   {
     icon: Stethoscope,
     title: 'Expert Doctors',
-    desc: 'Panel of 5 highly qualified specialists across cardiology, orthopedics, gynecology & more.',
+    desc: 'Panel of 19 highly qualified specialists across AIIMS, PGIMER, BHU, SSKM, and Manipal Hospitals.',
     color: 'emerald',
   },
   {
     icon: Clock,
     title: '24/7 Available',
-    desc: "Round-the-clock home sample collection service. We're always there when you need us.",
+    desc: "Round-the-clock diagnostic support and doorstep sample collection whenever you need it.",
     color: 'sky',
   },
   {
     icon: Home,
     title: 'Home Collection',
-    desc: 'Free doorstep sample pickup anywhere in Midnapore — book online in minutes.',
+    desc: 'Doorstep sample pickup anywhere in Midnapore town — book online or call 9733525031.',
     color: 'emerald',
   },
 ]
 
 const fallbackHomeDoctors = [
-  { name: 'Dr. D. A. Khan', spec: 'Pediatrics & Child Health', exp: '15+ yrs', days: 'Mon–Sat', initials: 'DK', color: 'purple' },
-  { name: 'Dr. Saikat Maiti', spec: 'Cosmetology & Hair Transplant', exp: '10+ yrs', days: 'Mon–Sat', initials: 'SM', color: 'teal' },
-  { name: 'Dr. Swapan Sinha', spec: 'Neurology & Brain Care', exp: '20+ yrs', days: 'Mon–Sat', initials: 'SS', color: 'rose' },
-  { name: 'Dr. Supriyo Bal', spec: 'General & Laparoscopic Surgery', exp: '10+ yrs', days: 'Mon–Sat', initials: 'SB', color: 'indigo' },
-  { name: 'Dr. S. Mahapatra', spec: 'Orthopedics & Joint Care', exp: '12+ yrs', days: 'Mon–Sat', initials: 'SM', color: 'amber' },
-  { name: 'Dr. Sudipto Sit', spec: 'General Medicine & Pain Management', exp: '10+ yrs', days: 'Mon–Sat', initials: 'SS', color: 'sky' },
-  { name: 'Dr. Arya Mahapatra', spec: 'Diabetes, Thyroid & Endocrinology', exp: '10+ yrs', days: 'Mon–Sat', initials: 'AM', color: 'emerald' },
-  { name: 'Dr. S K Das', spec: 'Cardiology', exp: '20+ yrs', days: 'Mon, Wed, Fri', initials: 'SD', color: 'red' },
+  { name: 'Dr. S. K. Das', spec: 'Orthopedics & Joint Surgery', exp: '15+ yrs', days: 'Mon–Sat', initials: 'SD', color: 'blue', imageUrl: '/images/doctors/dr-sk-das.jpg' },
+  { name: 'Dr. Niket Arora', spec: 'Cardiothoracic & Vascular Surgery', exp: '12+ yrs', days: 'Mon–Sat', initials: 'NA', color: 'red', imageUrl: '/images/doctors/dr-niket-arora.jpg' },
+  { name: 'Dr. Panchanan Panigrahi', spec: 'Surgical Gastroenterology', exp: '14+ yrs', days: 'Mon–Sat', initials: 'PP', color: 'amber', imageUrl: '/images/doctors/dr-panchanan-panigrahi.jpg' },
+  { name: 'Dr. Ayesha Sultana', spec: 'Gynecology & Obstetrics', exp: '12+ yrs', days: 'Mon–Sat', initials: 'AS', color: 'rose', imageUrl: '/images/doctors/dr-ayesha-sultana.jpg' },
+  { name: 'Dr. Archisman Haldar', spec: 'Neurology (AIIMS)', exp: '10+ yrs', days: 'Mon–Sat', initials: 'AH', color: 'indigo', imageUrl: '/images/doctors/dr-archisman-haldar.jpg' },
+  { name: 'Dr. Samujjwal Das', spec: 'Head & Neck Oncosurgery', exp: '10+ yrs', days: 'Mon–Sat', initials: 'SD', color: 'teal', imageUrl: '/images/doctors/dr-samujjwal-das.jpg' },
+  { name: 'Dr. Biswajit Panda', spec: 'General & Laparoscopic Surgery', exp: '10+ yrs', days: 'Mon–Sat', initials: 'BP', color: 'sky', imageUrl: '/images/doctors/dr-biswajit-panda.jpg' },
+  { name: 'Dr. Sudipto Sit', spec: 'General Medicine & Pain Management', exp: '10+ yrs', days: 'Mon–Sat', initials: 'SS', color: 'cyan', imageUrl: '/images/doctors/dr-sudipto-sit.jpg' },
 ]
 
 const packages = [
   {
-    name: 'Basic Health Package',
-    price: '₹799',
-    originalPrice: '₹1,200',
+    name: 'Health Checkup (47 Tests)',
+    price: '₹1,350',
+    originalPrice: '₹2,200',
     color: 'sky',
     tests: [
       'Complete Blood Count (CBC)',
-      'Blood Sugar (Fasting & PP)',
-      'Lipid Profile',
-      'Liver Function Test',
-      'Kidney Function Test',
+      'Liver Function Test (LFT)',
+      'Kidney Function Test (KFT)',
+      'Lipid Profile Screen',
+      'Blood Sugar (Fasting)',
+      'Urine Routine & Microscopy',
+      'Serum Electrolytes',
+      'ESR Assessment',
+    ],
+    popular: true,
+  },
+  {
+    name: 'Advanced Health Checkup (12 Tests)',
+    price: '₹1,999',
+    originalPrice: '₹3,200',
+    color: 'emerald',
+    tests: [
+      'CBC Complete Profiling',
+      'Liver & Kidney Function Panels',
+      'Complete Lipid Profile',
       'Thyroid Profile (TSH)',
-      'Urine Routine',
+      'HbA1c Glycated Hemoglobin',
+      'Computerized 12-Lead ECG',
+      'Digital Chest X-Ray',
+      'Doctor Consultation Review',
     ],
     popular: false,
   },
   {
-    name: 'Comprehensive Health Package',
-    price: '₹1,999',
-    originalPrice: '₹3,500',
-    color: 'emerald',
+    name: 'Diabetic Profile (59 Tests)',
+    price: '₹2,999',
+    originalPrice: '₹4,500',
+    color: 'purple',
     tests: [
-      'Everything in Basic Package',
-      'HbA1c (Diabetes)',
-      'Vitamin D & B12',
-      'Iron Studies',
-      'Cardiac Markers (Troponin)',
-      'Chest X-Ray',
-      'ECG',
-      'USG Abdomen',
-      'Doctor Consultation',
+      'Fasting & PP Blood Glucose',
+      'HbA1c & Estimated Avg Glucose',
+      'Complete Renal Function',
+      'Cardiovascular Lipid Risk Panel',
+      'Microalbuminuria Screen',
+      'Electrolytes & Urine Chemistry',
+      'Comprehensive Hematology',
+      'Specialist Diabetic Guidance',
     ],
     popular: true,
+  },
+  {
+    name: 'Cancer Marker Profile (7 Tests)',
+    price: '₹2,999',
+    originalPrice: '₹5,000',
+    color: 'rose',
+    tests: [
+      'CEA (Carcinoembryonic Antigen)',
+      'AFP (Alpha Fetoprotein)',
+      'CA-125 (Ovarian Screen)',
+      'PSA Total (Prostate Screen)',
+      'CA 19-9 (Pancreatic / GI)',
+      'Beta HCG Tumor Marker',
+      'CBC with Peripheral Smear',
+    ],
+    popular: false,
   },
 ]
 
@@ -191,7 +225,7 @@ const reviews = [
   {
     name: 'Priya Dey',
     rating: 5,
-    text: 'Very clean, hygienic facility with modern equipment. Dr. Nileswar Das is an amazing doctor. The USG and ECG facilities here are top-notch.',
+    text: 'Very clean, hygienic facility with modern equipment. Dr. Ujjwal Kumar Bera and the consulting team are amazing. The USG and diagnostic facilities here are top-notch.',
     date: '3 weeks ago',
     badge: 'Top Specialists',
   },
@@ -287,189 +321,8 @@ export default function HomePage() {
         />
       </Helmet>
 
-      {/* ── Hero ─────────────────────────────────────────────────────────────── */}
-      <section className="relative bg-gradient-to-br from-sky-600 via-sky-500 to-cyan-600 text-white overflow-hidden min-h-screen flex items-center">
-        {/* Background decorations */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-20 -right-20 w-96 h-96 bg-white/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 -left-20 w-80 h-80 bg-cyan-400/20 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-white/5 rounded-full blur-2xl" />
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-36 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left content */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white text-sm font-semibold px-4 py-2 rounded-full mb-6"
-              >
-                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                NABL Certified | 4.9★ | 163+ Reviews
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl md:text-5xl xl:text-6xl font-bold font-nunito leading-tight mb-6"
-              >
-                Midnapore's Most
-                <span className="block text-cyan-200">Trusted Diagnostic</span>
-                Centre
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-sky-100 text-lg leading-relaxed mb-8 max-w-lg"
-              >
-                NABL-certified lab with expert doctors, accurate reports, and 24/7 home
-                sample collection. Healthcare you can trust — right in the heart of Midnapore.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="flex flex-wrap gap-4"
-              >
-                <Link
-                  to="/book-consultation"
-                  className="inline-flex items-center gap-2 bg-white text-sky-700 font-bold px-7 py-3.5 rounded-xl hover:bg-sky-50 transition-all shadow-lg hover:shadow-xl"
-                >
-                  <CalendarDays size={18} />
-                  Book Consultation
-                </Link>
-                <Link
-                  to="/diagnostics"
-                  className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm border border-white/40 text-white font-semibold px-7 py-3.5 rounded-xl hover:bg-white/30 transition-all"
-                >
-                  View Test Packages
-                  <ArrowRight size={18} />
-                </Link>
-              </motion.div>
-
-              {/* Trust indicators */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="flex flex-wrap gap-4 mt-10"
-              >
-                {['Free Home Collection', 'Same Day Reports', 'Expert Doctors', 'Govt. Approved'].map((badge) => (
-                  <div key={badge} className="flex items-center gap-1.5 text-sm text-sky-100">
-                    <CheckCircle2 size={15} className="text-emerald-400" />
-                    {badge}
-                  </div>
-                ))}
-              </motion.div>
-            </div>
-
-            {/* Right – Decorative graphic */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="hidden lg:flex justify-center"
-            >
-              <div className="relative w-full max-w-md">
-                {/* Main card */}
-                <div className="bg-white/15 backdrop-blur-md border border-white/30 rounded-3xl p-8 shadow-2xl">
-                  <div className="flex items-center justify-between mb-6">
-                    <div>
-                      <p className="text-white/70 text-sm">Today's Appointments</p>
-                      <p className="text-white text-3xl font-bold">42</p>
-                    </div>
-                    <div className="bg-emerald-400/30 p-4 rounded-2xl">
-                      <Activity size={32} className="text-emerald-300" />
-                    </div>
-                  </div>
-
-                  {/* Mini stats */}
-                  <div className="grid grid-cols-3 gap-3 mb-6">
-                    {[
-                      { label: 'Reports Ready', value: '31', color: 'emerald' },
-                      { label: 'Processing', value: '8', color: 'amber' },
-                      { label: 'Pending', value: '3', color: 'sky' },
-                    ].map((s) => (
-                      <div key={s.label} className="bg-white/10 rounded-xl p-3 text-center">
-                        <p className="text-white text-xl font-bold">{s.value}</p>
-                        <p className="text-white/60 text-xs mt-1">{s.label}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Services list */}
-                  <div className="space-y-3">
-                    {[
-                      { name: 'Blood Test', status: 'Ready', pct: 100 },
-                      { name: 'USG Abdomen', status: 'Processing', pct: 65 },
-                      { name: 'ECG', status: 'Ready', pct: 100 },
-                    ].map((item) => (
-                      <div key={item.name} className="flex items-center gap-3">
-                        <div className="flex-1">
-                          <div className="flex justify-between text-xs mb-1">
-                            <span className="text-white/80">{item.name}</span>
-                            <span className={item.pct === 100 ? 'text-emerald-300' : 'text-amber-300'}>
-                              {item.status}
-                            </span>
-                          </div>
-                          <div className="bg-white/20 rounded-full h-1.5">
-                            <div
-                              className={`h-1.5 rounded-full ${item.pct === 100 ? 'bg-emerald-400' : 'bg-amber-400'}`}
-                              style={{ width: `${item.pct}%` }}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Floating badges */}
-                <motion.div
-                  animate={{ y: [-5, 5, -5] }}
-                  transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-                  className="absolute -top-4 -left-4 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3"
-                >
-                  <div className="bg-sky-100 p-2 rounded-xl">
-                    <ShieldCheck size={20} className="text-sky-600" />
-                  </div>
-                  <div>
-                    <p className="text-slate-800 text-xs font-bold">NABL Certified</p>
-                    <p className="text-slate-500 text-xs">Quality Assured</p>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [5, -5, 5] }}
-                  transition={{ repeat: Infinity, duration: 3.5, ease: 'easeInOut', delay: 0.5 }}
-                  className="absolute -bottom-4 -right-4 bg-white rounded-2xl shadow-xl p-4 flex items-center gap-3"
-                >
-                  <div className="bg-emerald-100 p-2 rounded-xl">
-                    <Clock size={20} className="text-emerald-600" />
-                  </div>
-                  <div>
-                    <p className="text-slate-800 text-xs font-bold">24/7 Available</p>
-                    <p className="text-slate-500 text-xs">Home Collection</p>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Wave separator */}
-        <div className="absolute bottom-0 left-0 right-0 overflow-hidden leading-none">
-          <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" className="w-full" preserveAspectRatio="none">
-            <path d="M0,60 C480,0 960,0 1440,60 L1440,60 L0,60 Z" fill="#f8fafc" />
-          </svg>
-        </div>
-      </section>
+      {/* ── Advanced Animated Hero Section ─────────────────────────────────── */}
+      <HeroSection />
 
       {/* ── Stats Bar ────────────────────────────────────────────────────────── */}
       <section className="py-10 bg-slate-50">

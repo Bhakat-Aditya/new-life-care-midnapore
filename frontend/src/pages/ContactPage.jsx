@@ -87,17 +87,31 @@ export default function ContactPage() {
     },
     {
       icon: Clock,
-      title: 'Operating Hours',
+      title: 'Operating Hours & Facilities',
       details: [
         'Diagnostics: Mon – Sun: 7:00 AM – 9:00 PM',
-        'Night Reporting: Emergency assistance till 9:30 PM',
-        'Home Sample Pickup: 24/7 On Demand',
+        'Home Sample Pickup: 24/7 Doorstep Service',
+        'Emergency Oxygen Cylinders Available',
       ],
       action: {
         label: 'Book Home Collection',
         href: '/book-collection',
       },
       color: 'teal',
+    },
+    {
+      icon: Mail,
+      title: 'Email & Online Portal',
+      details: [
+        'Email: newlifecaredc@gmail.com',
+        'Website: www.newlifecaremidnapore.com',
+        'NABL M(EL)T Accredited & ISO 9001:2015',
+      ],
+      action: {
+        label: 'Email Centre',
+        href: 'mailto:newlifecaredc@gmail.com',
+      },
+      color: 'indigo',
     },
   ]
 

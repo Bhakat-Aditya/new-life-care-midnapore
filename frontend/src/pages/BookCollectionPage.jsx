@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { createBooking, getTestCatalog } from '../services/api';
 import PageTransition from '../components/PageTransition';
+import PageHero from '../components/PageHero';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -230,21 +231,15 @@ export default function BookCollectionPage() {
         <link rel="canonical" href="https://newlifecaredc.in/book-collection" />
       </Helmet>
 
-      <main className="overflow-x-hidden bg-slate-50 min-h-screen py-10 px-4">
+      <PageHero
+        badge="Doorstep Healthcare"
+        title="Book Home Sample Collection"
+        subtitle="Certified phlebotomists collect your diagnostic blood and pathology samples directly at your doorstep in Midnapore."
+        breadcrumb={[{ label: 'Home Collection' }]}
+      />
+
+      <main className="overflow-x-hidden bg-slate-50 min-h-screen py-12 px-4 sm:px-6">
         <div className="max-w-3xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-10">
-            <span className="inline-block bg-sky-100 text-sky-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">
-              Home Collection
-            </span>
-            <h1 className="text-3xl sm:text-4xl font-bold text-slate-800">
-              Book Home Sample Collection
-            </h1>
-            <p className="text-slate-500 mt-2 text-sm max-w-lg mx-auto">
-              We come to you. Our trained phlebotomists collect your sample from the comfort of
-              your home.
-            </p>
-          </div>
 
           {success ? (
             <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-8">

@@ -19,24 +19,30 @@ import {
 } from 'lucide-react';
 import { createBooking, getDoctors } from '../services/api';
 import PageTransition from '../components/PageTransition';
+import PageHero from '../components/PageHero';
 
 // ─── Fallback Data ────────────────────────────────────────────────────────────
 
 const FALLBACK_DOCTORS_LIST = [
+  { name: 'Dr. S. K. Das', specialization: 'Orthopedics & Joint Surgery' },
+  { name: 'Dr. Niket Arora', specialization: 'Cardiothoracic & Vascular Surgery' },
+  { name: 'Dr. Panchanan Panigrahi', specialization: 'Surgical Gastroenterology & GI Surgery' },
+  { name: 'Dr. Ayesha Sultana', specialization: 'Gynecology & Obstetrics' },
+  { name: 'Dr. Archisman Haldar', specialization: 'Neurology & Brain Care' },
+  { name: 'Dr. Samujjwal Das', specialization: 'Head & Neck Oncosurgery' },
+  { name: 'Dr. Biswajit Panda', specialization: 'General & Laparoscopic Surgery' },
+  { name: 'Dr. Sudipto Sit', specialization: 'General Medicine & Pain Management' },
+  { name: 'Dr. Konika Das', specialization: 'Neuropsychiatry & Behavioral Health' },
+  { name: 'Dr. Arpita Maiti', specialization: 'Gynecology, Obstetrics & Infertility' },
+  { name: 'Dr. Sushovan Maiti', specialization: 'Gastroenterology & Hepatology' },
   { name: 'Dr. D. A. Khan', specialization: 'Pediatrics & Child Health' },
   { name: 'Dr. Saikat Maiti', specialization: 'Cosmetology, Trichology & Hair Transplant' },
   { name: 'Dr. S. Mahapatra', specialization: 'Orthopedics & Joint Care' },
-  { name: 'Dr. Sudipto Sit', specialization: 'General Medicine & Pain Management' },
+  { name: 'Dr. Arya Mahapatra', specialization: 'Diabetes, Thyroid & Endocrinology' },
   { name: 'Dr. Alamgir Sekh', specialization: 'General Medicine & Diabetology' },
   { name: 'Dr. Ujjwal Kumar Bera', specialization: 'General Physician & Internal Medicine' },
   { name: 'Dr. Supriyo Bal', specialization: 'General & Laparoscopic Surgery' },
   { name: 'Dr. Swapan Sinha', specialization: 'Neurology & Brain Care' },
-  { name: 'Dr. Arya Mahapatra', specialization: 'Diabetes, Thyroid & Endocrinology' },
-  { name: 'Dr. Nileswar Das', specialization: 'General Medicine & Critical Care' },
-  { name: 'Dr. S K Das', specialization: 'Cardiology' },
-  { name: 'Dr. Saubhik Dasukil', specialization: 'Orthopedics' },
-  { name: 'Dr. MD. Taquedis Nuri', specialization: 'Gynecology & Obstetrics' },
-  { name: 'Dr. Soumen Das', specialization: 'Diabetes & Endocrinology' },
 ];
 
 const TIME_SLOTS = [
@@ -558,21 +564,15 @@ export default function BookConsultationPage() {
         <link rel="canonical" href="https://newlifecaredc.in/book-consultation" />
       </Helmet>
 
-      <main className="overflow-x-hidden bg-slate-50 min-h-screen py-10 px-4">
-        <div className="max-w-2xl mx-auto">
-          {/* Page Header */}
-          <div className="text-center mb-8">
-            <span className="inline-block bg-sky-100 text-sky-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-3">
-              Book Now
-            </span>
-            <h1 className="text-3xl sm:text-4xl font-bold text-slate-800">
-              Book a Consultation
-            </h1>
-            <p className="text-slate-500 mt-2 text-sm">
-              Fill in the form below to schedule an appointment with one of our specialists.
-            </p>
-          </div>
+      <PageHero
+        badge="Doctor Appointments"
+        title="Book Doctor Consultation"
+        subtitle="Schedule an appointment with our specialist physicians and surgeons from AIIMS, Manipal, SSKM, and BHU."
+        breadcrumb={[{ label: 'Book Consultation' }]}
+      />
 
+      <main className="overflow-x-hidden bg-slate-50 min-h-screen py-12 px-4 sm:px-6">
+        <div className="max-w-2xl mx-auto">
           {!success && <StepIndicator currentStep={currentStep} totalSteps={3} />}
 
           <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 sm:p-8">

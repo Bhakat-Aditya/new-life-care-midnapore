@@ -1136,7 +1136,7 @@ export default function AdminDashboardPage() {
                       value={doctorForm.name}
                       onChange={(e) => setDoctorForm({ ...doctorForm, name: e.target.value })}
                       required
-                      placeholder="e.g. Dr. Nileswar Das"
+                      placeholder="e.g. Dr. D. A. Khan"
                       className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm"
                     />
                   </div>
@@ -1147,7 +1147,7 @@ export default function AdminDashboardPage() {
                       value={doctorForm.specialization}
                       onChange={(e) => setDoctorForm({ ...doctorForm, specialization: e.target.value })}
                       required
-                      placeholder="e.g. Cardiology"
+                      placeholder="e.g. Pediatrics & Child Health"
                       className="w-full px-3.5 py-2.5 border border-slate-200 rounded-xl text-sm"
                     />
                   </div>

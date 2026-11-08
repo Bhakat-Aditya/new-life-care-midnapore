@@ -26,6 +26,119 @@ const CATEGORIES = [
   { id: 'Events & Camps', label: 'Health Camps', icon: HeartHandshake },
 ]
 
+const FALLBACK_GALLERY = [
+  {
+    id: 1,
+    title: 'NABL Accredited Pathology Laboratory Floor',
+    description: 'Fully computerized pathology testing floor featuring automated chemistry analyzers, digital microscopes, and neuro-investigations setup.',
+    category: 'Equipment',
+    imageUrl: '/images/lab-interior-ncv-eeg.jpg',
+    featured: true,
+  },
+  {
+    id: 2,
+    title: 'Automated Biochemistry & Cell Counter Analyzers',
+    description: 'High-throughput AutoQuant biochemistry analyzer and computerized 5-part hematology cell counter for precision blood diagnostics.',
+    category: 'Equipment',
+    imageUrl: '/images/lab-packages-equipment.jpg',
+    featured: true,
+  },
+  {
+    id: 3,
+    title: 'Diagnostic Testing Station & Oxygen Support',
+    description: 'Dedicated diagnostic testing bay with computerized ECG, 24-hr Holter, PFT, EEG and emergency oxygen cylinder availability.',
+    category: 'Facilities',
+    imageUrl: '/images/lab-equipment-oxygen.jpg',
+    featured: true,
+  },
+  {
+    id: 4,
+    title: 'New Life Care Diagnostic Centre - Accredited Centre',
+    description: 'NABL M(EL)T Accredited & ISO 9001:2015 Certified Diagnostic Centre located at Keranitola, Midnapore Town.',
+    category: 'Facilities',
+    imageUrl: '/images/banner-main.jpg',
+    featured: true,
+  },
+  {
+    id: 5,
+    title: 'Visiting Medical Specialists & Surgeon Panel',
+    description: 'Official panel of 19 experienced specialist doctors across cardiology, neurology, gastroenterology, orthopedics, gynecology, and surgery.',
+    category: 'Doctors',
+    imageUrl: '/images/poster-visiting-doctors.jpg',
+    featured: true,
+  },
+  {
+    id: 6,
+    title: 'Orthopedic & Joint Surgery - Dr. S. K. Das',
+    description: 'AIIMS New Delhi trained orthopedic surgeon for arthroscopy, trauma, joint reconstruction, and spine care.',
+    category: 'Doctors',
+    imageUrl: '/images/doctors/dr-sk-das.jpg',
+  },
+  {
+    id: 7,
+    title: 'Cardiothoracic Surgery - Dr. Niket Arora',
+    description: 'Senior Consultant from Manipal Hospitals for advanced cardiovascular and thoracic surgical advisories.',
+    category: 'Doctors',
+    imageUrl: '/images/doctors/dr-niket-arora.jpg',
+  },
+  {
+    id: 8,
+    title: 'Surgical Gastroenterology - Dr. Panchanan Panigrahi',
+    description: 'Specialized gastrointestinal, laparoscopic, and hepatology diagnostic consultations from BHU.',
+    category: 'Doctors',
+    imageUrl: '/images/doctors/dr-panchanan-panigrahi.jpg',
+  },
+  {
+    id: 9,
+    title: 'Gynecology & High-Risk Pregnancy - Dr. Ayesha Sultana',
+    description: 'MRCOG London and DNB specialist providing women healthcare, antenatal consultation, and reproductive health advisory.',
+    category: 'Doctors',
+    imageUrl: '/images/doctors/dr-ayesha-sultana.jpg',
+  },
+  {
+    id: 10,
+    title: 'Neurology & Epilepsy Care - Dr. Archisman Haldar',
+    description: 'AIIMS-trained neurology specialist providing diagnosis for epilepsy, neuropathies, and stroke care.',
+    category: 'Doctors',
+    imageUrl: '/images/doctors/dr-archisman-haldar.jpg',
+  },
+  {
+    id: 11,
+    title: 'Head & Neck Oncosurgery - Dr. Samujjwal Das',
+    description: 'Specialist consultation from Desun Hospital for oral, facial, head and neck tumor evaluation.',
+    category: 'Doctors',
+    imageUrl: '/images/doctors/dr-samujjwal-das.jpg',
+  },
+  {
+    id: 12,
+    title: 'General & Laparoscopic OT Team - Dr. Biswajit Panda',
+    description: 'State-of-the-art operating theater setup for minimally invasive laparoscopic hernia and gallstone procedures.',
+    category: 'Doctors',
+    imageUrl: '/images/doctors/dr-biswajit-panda.jpg',
+  },
+  {
+    id: 13,
+    title: 'Neuropsychiatry & Behavioral Health - Dr. Konika Das',
+    description: 'SSKM-trained consultant neuropsychiatrist for anxiety, depression, sleep disorders, and psychiatric counseling.',
+    category: 'Doctors',
+    imageUrl: '/images/doctors/dr-konika-das.jpg',
+  },
+  {
+    id: 14,
+    title: 'Gynecology & Infertility - Dr. Arpita Maiti',
+    description: 'Consultant Gynecologist, Obstetrician, and Infertility Specialist, Ex-Midnapore Medical College & Hospital.',
+    category: 'Doctors',
+    imageUrl: '/images/doctors/dr-arpita-maiti.jpg',
+  },
+  {
+    id: 15,
+    title: 'Gastroenterology & Hepatology - Dr. Sushovan Maiti',
+    description: 'SSKM & Asian Institute of Gastroenterology (AIG) specialist treating acid peptic disorders and liver diseases.',
+    category: 'Doctors',
+    imageUrl: '/images/doctors/dr-sushovan-maiti.jpg',
+  },
+]
+
 // Convert YouTube watch URL or share URL to embed URL
 const getYouTubeEmbedUrl = (url) => {
   if (!url) return null
@@ -51,10 +164,20 @@ export default function GalleryPage() {
       setLoading(true)
       try {
         const data = await getGallery(activeCategory === 'All' ? null : activeCategory)
-        setItems(Array.isArray(data) ? data : [])
+        if (Array.isArray(data) && data.length > 0) {
+          setItems(data)
+        } else {
+          const filtered = activeCategory === 'All'
+            ? FALLBACK_GALLERY
+            : FALLBACK_GALLERY.filter((item) => item.category === activeCategory)
+          setItems(filtered)
+        }
       } catch (err) {
         console.error('Error fetching gallery:', err)
-        setItems([])
+        const filtered = activeCategory === 'All'
+          ? FALLBACK_GALLERY
+          : FALLBACK_GALLERY.filter((item) => item.category === activeCategory)
+        setItems(filtered)
       } finally {
         setLoading(false)
       }

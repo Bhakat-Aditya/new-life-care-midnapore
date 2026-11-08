@@ -19,88 +19,103 @@ const DUMMY_TESTS = [
   { testCode: 'USG_ABDOMEN', id: 'USG_ABDOMEN', name: 'USG Abdomen & Pelvis', category: 'USG', price: 800, turnaround: 'Immediate', sampleType: 'Non-invasive' },
   { testCode: 'USG_WHOLE', id: 'USG_WHOLE', name: 'USG Whole Abdomen', category: 'USG', price: 1000, turnaround: 'Immediate', sampleType: 'Non-invasive' },
   { testCode: 'ECHO', id: 'ECHO', name: 'Echocardiography', category: 'Cardiology', price: 1200, turnaround: 'Immediate', sampleType: 'Non-invasive' },
-  { testCode: 'ECG_12', id: 'ECG_12', name: 'ECG (12 Lead)', category: 'Cardiology', price: 150, turnaround: 'Immediate', sampleType: 'Non-invasive' },
-  { testCode: 'HOLTER', id: 'HOLTER', name: 'Holter Monitoring (24hr)', category: 'Cardiology', price: 2500, turnaround: '24 hours', sampleType: 'Wearable' },
-  { testCode: 'XRAY_CHEST', id: 'XRAY_CHEST', name: 'X-Ray Chest (Digital)', category: 'Radiology', price: 300, turnaround: 'Immediate', sampleType: 'Digital X-Ray' },
-  { testCode: 'XRAY_LS', id: 'XRAY_LS', name: 'X-Ray Lumbo-Sacral Spine', category: 'Radiology', price: 400, turnaround: 'Immediate', sampleType: 'Digital X-Ray' },
+  { testCode: 'ECG_12', id: 'ECG_12', name: 'Computerized ECG (12 Lead)', category: 'Cardiology', price: 150, turnaround: 'Immediate', sampleType: 'Non-invasive' },
+  { testCode: 'HOLTER', id: 'HOLTER', name: '24-Hour Holter Monitoring', category: 'Cardiology', price: 2500, turnaround: '24 hours', sampleType: 'Wearable' },
+  { testCode: 'XRAY_CHEST', id: 'XRAY_CHEST', name: 'Digital X-Ray Chest', category: 'Radiology', price: 300, turnaround: 'Immediate', sampleType: 'Digital X-Ray' },
+  { testCode: 'XRAY_LS', id: 'XRAY_LS', name: 'Digital X-Ray Lumbo-Sacral Spine', category: 'Radiology', price: 400, turnaround: 'Immediate', sampleType: 'Digital X-Ray' },
   { testCode: 'PFT', id: 'PFT', name: 'Pulmonary Function Test (PFT)', category: 'Pulmonology', price: 500, turnaround: 'Immediate', sampleType: 'Spirometry' },
+  { testCode: 'EEG', id: 'EEG', name: 'Electroencephalogram (EEG)', category: 'Neurology', price: 1500, turnaround: 'Same day', sampleType: 'Digital Recording' },
+  { testCode: 'NCV', id: 'NCV', name: 'Nerve Conduction Velocity (NCV)', category: 'Neurology', price: 2000, turnaround: 'Same day', sampleType: 'Electrophysiology' },
+  { testCode: 'ENDOSCOPY', id: 'ENDOSCOPY', name: 'Upper GI Video Endoscopy', category: 'Gastroenterology', price: 2200, turnaround: 'Immediate', sampleType: 'Endoscopic' },
+  { testCode: 'SEMEN_ANALYSIS', id: 'SEMEN_ANALYSIS', name: 'Semen Analysis & Examination', category: 'Pathology', price: 300, turnaround: 'Same day', sampleType: 'Semen' },
+  { testCode: 'STOOL_RE', id: 'STOOL_RE', name: 'Stool Routine & Occult Blood', category: 'Pathology', price: 150, turnaround: '4-6 hours', sampleType: 'Stool' },
+  { testCode: 'SPUTUM_AFB', id: 'SPUTUM_AFB', name: 'Sputum for AFB (TB Screening)', category: 'Pathology', price: 200, turnaround: 'Same day', sampleType: 'Sputum' },
 ];
 
 const DUMMY_PACKAGES = [
   {
-    id: 'PKG_BASIC',
-    testCode: 'PKG_BASIC',
-    name: 'Basic Health Checkup',
+    id: 'PKG_HEALTH_47',
+    testCode: 'PKG_HEALTH_47',
+    name: 'Health Checkup (47 Tests)',
     category: 'Packages',
-    price: 999,
-    originalPrice: 1500,
-    tests: ['CBC', 'Blood Sugar (Fasting)', 'Urine Routine', 'LFT', 'KFT'],
-    description: 'Essential health screening for routine health monitoring.',
-    popular: false,
-    isPackage: true,
-  },
-  {
-    id: 'PKG_COMP',
-    testCode: 'PKG_COMP',
-    name: 'Comprehensive Health Checkup',
-    category: 'Packages',
-    price: 2499,
-    originalPrice: 3800,
-    tests: ['CBC', 'LFT', 'KFT', 'Lipid Profile', 'Thyroid Profile', 'Blood Sugar', 'HbA1c', 'Urine Routine', 'ECG', 'X-Ray Chest'],
-    description: 'Full-body health assessment covering all vital organ parameters.',
+    price: 1350,
+    originalPrice: 2200,
+    tests: ['CBC (Complete Blood Count)', 'Liver Function (LFT)', 'Kidney Function (KFT)', 'Lipid Profile', 'Fasting Blood Sugar', 'Urine Routine & Microscopy', 'ESR', 'Serum Electrolytes'],
+    description: 'Comprehensive health screening covering 47 key diagnostic parameters for routine wellness.',
     popular: true,
     isPackage: true,
   },
   {
-    id: 'PKG_CARDIAC',
-    testCode: 'PKG_CARDIAC',
-    name: 'Cardiac Health Package',
+    id: 'PKG_HEALTH_ADV_12',
+    testCode: 'PKG_HEALTH_ADV_12',
+    name: 'Advanced Health Checkup (12 Tests)',
     category: 'Packages',
-    price: 1799,
-    originalPrice: 2600,
-    tests: ['ECG', 'Lipid Profile', 'Blood Sugar', 'CBC', 'CRP', 'Echocardiography'],
-    description: 'Comprehensive cardiac risk assessment and heart rhythm analysis.',
+    price: 1999,
+    originalPrice: 3200,
+    tests: ['CBC', 'Liver Function', 'Kidney Function', 'Lipid Profile', 'Thyroid Profile (TSH)', 'HbA1c', 'ECG', 'Digital Chest X-Ray', 'Urine Routine', 'Serum Calcium', 'Blood Sugar'],
+    description: 'Detailed clinical evaluation for chronic disease prevention and vital organ assessments.',
     popular: false,
     isPackage: true,
   },
   {
-    id: 'PKG_DIABETES',
-    testCode: 'PKG_DIABETES',
-    name: 'Diabetes Care Package',
+    id: 'PKG_DIABETIC_59',
+    testCode: 'PKG_DIABETIC_59',
+    name: 'Diabetic Profile (59 Tests)',
     category: 'Packages',
-    price: 899,
-    originalPrice: 1400,
-    tests: ['Blood Sugar (Fasting)', 'Blood Sugar (PP)', 'HbA1c', 'KFT', 'Urine Routine', 'Lipid Profile'],
-    description: 'Complete glycemic evaluation and metabolic health profile.',
+    price: 2999,
+    originalPrice: 4500,
+    tests: ['Fasting Glucose', 'PP Glucose', 'HbA1c Glycated Hemoglobin', 'Average Blood Glucose', 'Complete Renal Function', 'Lipid Screen', 'Microalbuminuria', 'CBC', 'Serum Electrolytes'],
+    description: 'Specialized 59-test diabetic and cardiovascular wellness profile for comprehensive glycemic control.',
+    popular: true,
+    isPackage: true,
+  },
+  {
+    id: 'PKG_CANCER_7',
+    testCode: 'PKG_CANCER_7',
+    name: 'Cancer Marker Profile (7 Tests)',
+    category: 'Packages',
+    price: 2999,
+    originalPrice: 5000,
+    tests: ['CEA (Carcinoembryonic Antigen)', 'AFP (Alpha Fetoprotein)', 'CA 125', 'PSA (Total)', 'CA 19-9', 'Beta HCG', 'CBC with Peripheral Smear'],
+    description: 'Targeted multi-organ cancer biomarker profile screening for early detection and oncological review.',
     popular: false,
     isPackage: true,
   },
 ];
 
 /**
- * Seed initial test catalogue into MongoDB if empty
+ * Seed initial test catalogue into MongoDB if empty or sync updated packages
  */
 export const seedDefaultTests = async () => {
   try {
-    const count = await TestItem.countDocuments();
-    if (count === 0) {
-      const itemsToInsert = [
-        ...DUMMY_TESTS.map(t => ({ ...t, isPackage: false, source: 'mock' })),
-        ...DUMMY_PACKAGES.map(p => ({
-          testCode: p.id,
-          name: p.name,
-          category: 'Packages',
-          price: p.price,
-          originalPrice: p.originalPrice,
-          description: p.description,
-          includes: p.tests,
-          isPackage: true,
-          source: 'mock',
-        })),
-      ];
-      await TestItem.insertMany(itemsToInsert);
-      console.log('🧪 Seeded initial tests & packages into MongoDB.');
+    for (const t of DUMMY_TESTS) {
+      await TestItem.updateOne(
+        { testCode: t.testCode },
+        { $set: { ...t, isPackage: false, source: 'mock' } },
+        { upsert: true }
+      );
     }
+    for (const p of DUMMY_PACKAGES) {
+      await TestItem.updateOne(
+        { testCode: p.id },
+        {
+          $set: {
+            testCode: p.id,
+            name: p.name,
+            category: 'Packages',
+            price: p.price,
+            originalPrice: p.originalPrice,
+            description: p.description,
+            includes: p.tests,
+            isPackage: true,
+            popular: p.popular,
+            source: 'mock',
+          },
+        },
+        { upsert: true }
+      );
+    }
+    console.log('🧪 Seeded/synced official tests & packages into MongoDB.');
   } catch (error) {
     console.warn('⚠️ Could not seed tests into MongoDB:', error.message);
   }

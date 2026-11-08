@@ -17,7 +17,7 @@ const generateMockReports = (patientId, phone) => {
         testDate: today,
         reportDate: today,
         status: 'ready',
-        verifiedBy: 'Dr. Nileswar Das (Consultant Pathologist)',
+        verifiedBy: 'Consultant Pathologist (New Life Care)',
         downloadUrl: '/api/reports/download/RPT-1001',
         results: [
           { parameter: 'Haemoglobin', value: '14.2', unit: 'g/dL', refRange: '13.0 – 17.0', flag: 'Normal' },
@@ -36,7 +36,7 @@ const generateMockReports = (patientId, phone) => {
         testDate: today,
         reportDate: today,
         status: 'ready',
-        verifiedBy: 'Dr. Nileswar Das (Consultant Pathologist)',
+        verifiedBy: 'Consultant Pathologist (New Life Care)',
         downloadUrl: '/api/reports/download/RPT-1002',
         results: [
           { parameter: 'TSH (Ultrasensitive)', value: '2.45', unit: 'µIU/mL', refRange: '0.4 – 4.2', flag: 'Normal' },
@@ -159,7 +159,7 @@ export const downloadReport = async (req, res) => {
   <div class="info-box">
     <div><strong>Patient Name:</strong> Ramesh Sen</div>
     <div><strong>Age / Gender:</strong> 42 Yrs / Male</div>
-    <div><strong>Referred By:</strong> Dr. Nileswar Das</div>
+    <div><strong>Referred By:</strong> Consulting Physician</div>
     <div><strong>Sample Collected:</strong> ${new Date().toLocaleDateString('en-IN')}</div>
   </div>
 
@@ -186,8 +186,8 @@ export const downloadReport = async (req, res) => {
 
   <div class="signature">
     <div>Digitally Authenticated By:</div>
-    <div style="margin-top: 20px; font-weight: 700; color: #0369a1;">Dr. Nileswar Das, MD</div>
-    <div style="font-size: 12px; color: #64748b;">Consultant Pathologist & Critical Care</div>
+    <div style="margin-top: 20px; font-weight: 700; color: #0369a1;">Consultant Pathologist, MD</div>
+    <div style="font-size: 12px; color: #64748b;">Laboratory Director & Quality Assurance</div>
   </div>
 
   <div class="footer">
